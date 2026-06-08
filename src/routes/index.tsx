@@ -36,14 +36,14 @@ function Home() {
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                to="/products/gym-freak"
+                to="/shop"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_10px_30px_-12px_oklch(0.65_0.16_50/0.55)] transition-all hover:shadow-[0_14px_36px_-12px_oklch(0.65_0.16_50/0.65)] hover:-translate-y-0.5"
               >
                 Shop the drop
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-              <Link to="/shop" className="text-sm font-medium text-foreground/70 underline-offset-4 hover:text-primary hover:underline">
-                Browse everything
+              <Link to="/products/gym-freak" className="text-sm font-medium text-foreground/70 underline-offset-4 hover:text-primary hover:underline">
+                About Summer Arc
               </Link>
             </div>
           </div>

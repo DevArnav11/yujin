@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingBag, Flame } from "lucide-react";
+import { Flame, Search } from "lucide-react";
+import { CartDrawer } from "@/components/site/CartDrawer";
 
 export function Nav() {
   return (
@@ -15,15 +16,12 @@ export function Nav() {
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>
           <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
           <Link to="/products/gym-freak" className="hover:text-primary transition-colors">Summer Arc</Link>
-          <Link to="/about" className="hover:text-primary transition-colors">About</Link>
         </nav>
         <div className="flex items-center gap-4 text-foreground/80">
           <button aria-label="Search" className="hover:text-primary transition-colors">
             <Search className="h-5 w-5" />
           </button>
-          <button aria-label="Cart" className="hover:text-primary transition-colors">
-            <ShoppingBag className="h-5 w-5" />
-          </button>
+          <CartDrawer />
         </div>
       </div>
     </header>
