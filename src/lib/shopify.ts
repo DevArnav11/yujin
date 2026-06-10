@@ -67,7 +67,7 @@ export const PRODUCTS_QUERY = `
     products(first: $first, query: $query) {
       edges {
         node {
-          id title description handle
+          id title description handle productType tags
           priceRange { minVariantPrice { amount currencyCode } }
           images(first: 5) { edges { node { url altText } } }
           variants(first: 25) {
