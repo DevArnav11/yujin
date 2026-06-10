@@ -7,6 +7,9 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Force Nitro to run with the Netlify preset so SSR routing works on Netlify deploys.
+  // Without this, Nitro only runs inside a Lovable sandbox, and all routes 404 on Netlify.
+  nitro: { preset: "netlify" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
