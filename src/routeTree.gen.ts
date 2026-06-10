@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsGymFreakRouteImport } from './routes/products.gym-freak'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
@@ -17,6 +18,11 @@ import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/profile': typeof ProfileRoute
   '/shop': typeof ShopRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/gym-freak': typeof ProductsGymFreakRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/profile': typeof ProfileRoute
   '/shop': typeof ShopRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/gym-freak': typeof ProductsGymFreakRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/profile': typeof ProfileRoute
   '/shop': typeof ShopRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/gym-freak': typeof ProductsGymFreakRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/shop' | '/product/$handle' | '/products/gym-freak'
+  fullPaths:
+    | '/'
+    | '/profile'
+    | '/shop'
+    | '/product/$handle'
+    | '/products/gym-freak'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/shop' | '/product/$handle' | '/products/gym-freak'
-  id: '__root__' | '/' | '/shop' | '/product/$handle' | '/products/gym-freak'
+  to: '/' | '/profile' | '/shop' | '/product/$handle' | '/products/gym-freak'
+  id:
+    | '__root__'
+    | '/'
+    | '/profile'
+    | '/shop'
+    | '/product/$handle'
+    | '/products/gym-freak'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProfileRoute: typeof ProfileRoute
   ShopRoute: typeof ShopRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ProductsGymFreakRoute: typeof ProductsGymFreakRoute
@@ -76,6 +97,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,6 +132,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProfileRoute: ProfileRoute,
   ShopRoute: ShopRoute,
   ProductHandleRoute: ProductHandleRoute,
   ProductsGymFreakRoute: ProductsGymFreakRoute,
@@ -111,3 +140,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
