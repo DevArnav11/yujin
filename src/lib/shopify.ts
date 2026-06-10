@@ -23,6 +23,8 @@ export interface ShopifyProductNode {
   title: string;
   description: string;
   handle: string;
+  productType?: string;
+  tags?: string[];
   priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
   images: { edges: Array<{ node: ShopifyImage }> };
   variants: { edges: Array<{ node: ShopifyVariant }> };
