@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Flame, Search } from "lucide-react";
+import { Flame, User } from "lucide-react";
 import { CartDrawer } from "@/components/site/CartDrawer";
 
 export function Nav() {
@@ -13,14 +13,33 @@ export function Nav() {
           </span>
         </Link>
         <nav className="hidden items-center gap-10 text-sm font-medium text-foreground/80 md:flex">
-          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-          <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
-          <Link to="/products/gym-freak" className="hover:text-primary transition-colors">Summer Arc</Link>
+          <Link
+            to="/"
+            activeOptions={{ exact: true }}
+            activeProps={{ className: "text-primary" }}
+            className="hover:text-primary transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            to="/shop"
+            activeProps={{ className: "text-primary" }}
+            className="hover:text-primary transition-colors"
+          >
+            Shop
+          </Link>
+          <Link
+            to="/profile"
+            activeProps={{ className: "text-primary" }}
+            className="hover:text-primary transition-colors"
+          >
+            Profile
+          </Link>
         </nav>
         <div className="flex items-center gap-4 text-foreground/80">
-          <button aria-label="Search" className="hover:text-primary transition-colors">
-            <Search className="h-5 w-5" />
-          </button>
+          <Link to="/profile" aria-label="Profile" className="hover:text-primary transition-colors">
+            <User className="h-5 w-5" />
+          </Link>
           <CartDrawer />
         </div>
       </div>
